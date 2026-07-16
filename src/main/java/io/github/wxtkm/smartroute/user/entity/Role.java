@@ -1,4 +1,4 @@
-package io.github.wxtkm.smartroute.entity;
+package io.github.wxtkm.smartroute.user.entity;
 
 import jakarta.persistence.*;
 

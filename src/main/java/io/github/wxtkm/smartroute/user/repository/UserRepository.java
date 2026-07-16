@@ -1,6 +1,6 @@
-package io.github.wxtkm.smartroute.repository;
+package io.github.wxtkm.smartroute.user.repository;
 
-import io.github.wxtkm.smartroute.entity.User;
+import io.github.wxtkm.smartroute.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
