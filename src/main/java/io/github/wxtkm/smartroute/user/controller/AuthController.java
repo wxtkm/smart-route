@@ -1,17 +1,17 @@
 package io.github.wxtkm.smartroute.user.controller;
+
 import io.github.wxtkm.smartroute.user.dto.request.LoginRequest;
+import io.github.wxtkm.smartroute.user.dto.request.RegisterRequest;
+import io.github.wxtkm.smartroute.user.dto.response.AuthResponse;
+import io.github.wxtkm.smartroute.user.dto.response.UserResponse;
 import io.github.wxtkm.smartroute.user.service.UserService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import io.github.wxtkm.smartroute.user.dto.request.RegisterRequest;
-import io.github.wxtkm.smartroute.user.dto.response.UserResponse;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import io.github.wxtkm.smartroute.user.dto.response.AuthResponse;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -22,15 +22,17 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(
-            @Valid @RequestBody RegisterRequest request) {
-
-        return ResponseEntity.ok(userService.register(request));
+            @Valid @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userService.register(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(
-            @RequestBody LoginRequest request){
-
+            @Valid @RequestBody LoginRequest request
+    ) {
         return ResponseEntity.ok(
                 userService.login(request)
         );

@@ -6,6 +6,7 @@ import io.github.wxtkm.smartroute.user.dto.response.AuthResponse;
 import io.github.wxtkm.smartroute.user.dto.response.UserResponse;
 
 public interface UserService {
+
     UserResponse register(RegisterRequest request);
 
     AuthResponse login(LoginRequest request);
