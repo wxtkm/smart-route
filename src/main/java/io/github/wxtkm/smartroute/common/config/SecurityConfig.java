@@ -1,6 +1,7 @@
 package io.github.wxtkm.smartroute.common.config;
 
 import io.github.wxtkm.smartroute.common.security.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,10 +36,24 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**"
+                                "/v3/api-docs/**",
+                                "/error"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+
+
+
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint((request, response, exception) ->
+                                response.sendError(
+                                        HttpServletResponse.SC_UNAUTHORIZED,
+                                        "Unauthorized"
+                                )
+                        )
+                )
+
+
 
                 .addFilterBefore(
                         jwtAuthenticationFilter,

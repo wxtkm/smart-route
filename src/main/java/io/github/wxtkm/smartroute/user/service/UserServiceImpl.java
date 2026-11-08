@@ -7,6 +7,7 @@ import io.github.wxtkm.smartroute.user.dto.response.UserResponse;
 import io.github.wxtkm.smartroute.user.entity.User;
 import io.github.wxtkm.smartroute.user.repository.RoleRepository;
 import io.github.wxtkm.smartroute.user.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,10 +23,38 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
+
     @Override
+    @Transactional
     public UserResponse register(RegisterRequest request) {
-        return null;
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Email already registered"
+            );
+        }
+
+        User user = new User();
+
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+
+        user.setPassword(
+                passwordEncoder.encode(request.getPassword())
+        );
+
+        User savedUser = userRepository.save(user);
+
+        return UserResponse.builder()
+                .id(savedUser.getId())
+                .firstName(savedUser.getFirstName())
+                .lastName(savedUser.getLastName())
+                .email(savedUser.getEmail())
+                .build();
     }
+
 
     @Override
     public AuthResponse login(LoginRequest request) {
