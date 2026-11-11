@@ -2,6 +2,7 @@
 package io.github.wxtkm.smartroute.vehicle.controller;
 
 import io.github.wxtkm.smartroute.vehicle.dto.request.CreateVehicleRequest;
+import io.github.wxtkm.smartroute.vehicle.dto.request.UpdateVehicleRequest;
 import io.github.wxtkm.smartroute.vehicle.dto.response.VehicleResponse;
 import io.github.wxtkm.smartroute.vehicle.service.VehicleService;
 
@@ -58,6 +59,23 @@ public class VehicleController {
                 )
         );
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VehicleResponse> updateVehicle(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateVehicleRequest request,
+            Authentication authentication
+    ) {
+        VehicleResponse updatedVehicle = vehicleService.updateVehicle(
+                id,
+                request,
+                authentication.getName()
+        );
+
+        return ResponseEntity.ok(updatedVehicle);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVehicle(

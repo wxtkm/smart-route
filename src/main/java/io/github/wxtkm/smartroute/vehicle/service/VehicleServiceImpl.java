@@ -4,6 +4,7 @@ package io.github.wxtkm.smartroute.vehicle.service;
 import io.github.wxtkm.smartroute.user.entity.User;
 import io.github.wxtkm.smartroute.user.repository.UserRepository;
 import io.github.wxtkm.smartroute.vehicle.dto.request.CreateVehicleRequest;
+import io.github.wxtkm.smartroute.vehicle.dto.request.UpdateVehicleRequest;
 import io.github.wxtkm.smartroute.vehicle.dto.response.VehicleResponse;
 import io.github.wxtkm.smartroute.vehicle.entity.Vehicle;
 import io.github.wxtkm.smartroute.vehicle.repository.VehicleRepository;
@@ -66,6 +67,31 @@ public class VehicleServiceImpl implements VehicleService {
 
         return toResponse(vehicle);
     }
+
+
+    @Override
+    @Transactional
+    public VehicleResponse updateVehicle(
+            Long vehicleId,
+            UpdateVehicleRequest request,
+            String userEmail
+    ) {
+        User user = findUser(userEmail);
+
+        Vehicle vehicle = findOwnedVehicle(
+                vehicleId,
+                user.getId()
+        );
+
+        vehicle.setBrand(request.getBrand());
+        vehicle.setModel(request.getModel());
+        vehicle.setProductionYear(request.getProductionYear());
+        vehicle.setFuelConsumption(request.getFuelConsumption());
+        vehicle.setTankCapacity(request.getTankCapacity());
+
+        return toResponse(vehicleRepository.save(vehicle));
+    }
+
 
     @Override
     @Transactional

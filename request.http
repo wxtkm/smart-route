@@ -14,9 +14,7 @@ Content-Type: application/json
 
 ###
 
-# curl -i -X POST http://localhost:8080/api/auth/login
-#  -H "Content-Type: application/json"
-#  -d '{"email":"alexexample.com","password":"ExamplePassword123!"}'
+### Login
 POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
@@ -24,6 +22,10 @@ Content-Type: application/json
   "email": "alex@example.com",
   "password": "ExamplePassword123!"
 }
+
+> {%
+    client.global.set("jwt", response.body.token);
+%}
 
 ###
 
@@ -39,4 +41,18 @@ Content-Type: application/json
   "tankCapacity": 50
 }
 
+###
+
+PUT http://localhost:8080/api/vehicles/1
+Authorization: Bearer {{jwt}}
+Content-Type: application/json
+
+
+{
+  "brand": "Toyota",
+  "model": "Corolla Hybrid",
+  "productionYear": 2021,
+  "fuelConsumption": 4.5,
+  "tankCapacity": 43
+}
 
