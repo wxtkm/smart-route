@@ -1,2 +1,42 @@
-GET http://localhost:8080/api/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaW1hQGV4YW1wbGUuY29tIiwiaWF0IjoxNzk0MTU2NjE0LCJleHAiOjE3OTQxNTc1MTR9.vbVGkQjdukuvEQujsZB6Tz2-L3oYzUkX_EvmYh1Iofc
+###
+# curl -i -X POST http://localhost:8080/api/auth/register
+#  -H "Content-Type: application/json"
+#  -d '{"firstName":"Alex","lastName":"Smith","email":"alexexample.com","password":"ExamplePassword123!"}'
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Alex",
+  "lastName": "Smith",
+  "email": "alex@example.com",
+  "password": "ExamplePassword123!"
+}
+
+###
+
+# curl -i -X POST http://localhost:8080/api/auth/login
+#  -H "Content-Type: application/json"
+#  -d '{"email":"alexexample.com","password":"ExamplePassword123!"}'
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alex@example.com",
+  "password": "ExamplePassword123!"
+}
+
+###
+
+POST http://localhost:8080/api/vehicles
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4QGV4YW1wbGUuY29tIiwiaWF0IjoxNzk0NDE0MTMzLCJleHAiOjE3OTQ0MTUwMzN9.SbpbFgo-SHUXndePBt4c5UNciqlHJghN9V58lUNiYug
+Content-Type: application/json
+
+{
+  "brand": "Toyota",
+  "model": "Corolla",
+  "productionYear": 2019,
+  "fuelConsumption": 6.5,
+  "tankCapacity": 50
+}
+
+
