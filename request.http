@@ -56,3 +56,14 @@ Content-Type: application/json
   "tankCapacity": 43
 }
 
+###
+
+POST http://localhost:8080/api/vehicles/1/range/calculate
+Authorization: Bearer {{jwt}}
+Content-Type: application/json
+
+{
+  "currentFuel": 30,
+  "reserveFuel": 5,
+  "distanceKm": 350
+}
