@@ -67,3 +67,15 @@ Content-Type: application/json
   "reserveFuel": 5,
   "distanceKm": 350
 }
+
+###
+
+PUT http://localhost:8080/api/users/me
+Authorization: Bearer {{jwt}}
+Content-Type: application/json
+
+{
+  "firstName": "Dmytro",
+  "lastName": "Kovtun",
+  "username": "wxtkm"
+}

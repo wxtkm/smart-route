@@ -9,6 +9,7 @@ import io.github.wxtkm.smartroute.user.dto.response.UserResponse;
 import io.github.wxtkm.smartroute.user.entity.User;
 import io.github.wxtkm.smartroute.user.repository.RoleRepository;
 import io.github.wxtkm.smartroute.user.repository.UserRepository;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -64,12 +65,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthResponse login(LoginRequest request) {
 
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findByEmail(request.getLogin())
+                .or(() -> userRepository.findByUsername(request.getLogin()))
                 .orElseThrow(() ->
-                        new ResponseStatusException(
-                                HttpStatus.UNAUTHORIZED,
-                                "Invalid email or password"
-                        )
+                        new BadCredentialsException("Invalid credentials")
                 );
 
         if (!passwordEncoder.matches(
