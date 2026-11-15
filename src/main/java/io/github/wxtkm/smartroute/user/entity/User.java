@@ -39,6 +39,11 @@ public class User {
     private String lastName;
 
 
+    @Column(name = "username", length = 30)
+    private String username;
+
+
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
