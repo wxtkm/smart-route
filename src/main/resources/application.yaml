@@ -14,11 +14,15 @@ spring:
         format_sql: true
 
 jwt:
-    secret: ${JWT_SECRET}
-    expiration: 900000
+  secret: "test-only-secret-32-bytes-minimum-not-for-production"
+  expiration: 3600000
 
 
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.tool.schema: DEBUG
+
+app:
+  cors:
+    allowed-origin: ${CORS_ALLOWED_ORIGIN:http://localhost:5173}
