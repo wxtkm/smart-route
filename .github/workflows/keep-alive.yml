@@ -1,8 +1,10 @@
 name: SmartRoute Keep Alive
 
 on:
-  schedule:
-    - cron: "*/10 * * * *"
+  # Schedule is disabled to save GitHub Actions minutes and comply with usage policies.
+  # An external monitoring service (e.g., UptimeRobot / cron-job.org) is used for pinging instead.
+  # schedule:
+  #   - cron: "*/10 * * * *"
   workflow_dispatch:
 
 jobs:
